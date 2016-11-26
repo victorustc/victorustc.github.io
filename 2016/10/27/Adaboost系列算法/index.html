@@ -45,16 +45,16 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="1.基本介绍Adaboost可以认为是一个机器学习中集成学习的算法框架，主要集中于解决二分类问题；而Adaboost.MH不仅仅可以解决多分类问题，还可以解决一个样本有多个标签的问题，比如说一个篇新闻既属于体育类又属于篮球类，那么这篇新闻可以同时打上两个标签（新闻和篮球），所以Adaboost.MH可以解决multi-label multi-class问题；MP-Boost算法和Adaboost.">
+<meta name="description" content="1.基本介绍Adaboost可以认为是机器学习中一个集成学习的算法框架，主要集中于解决二分类问题；而Adaboost.MH不仅仅可以解决多分类问题，还可以解决一个样本有多个标签的问题，比如说一个篇新闻既属于体育类又属于篮球类，那么这篇新闻可以同时打上两个标签（新闻和篮球），所以Adaboost.MH可以解决Multi-Label Multi-Class问题；MP-Boost算法和Adaboost.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Adaboost、Adaboost.MH和MP-Boost算法原理和对比">
 <meta property="og:url" content="http://lookfare.com/2016/10/27/Adaboost系列算法/index.html">
 <meta property="og:site_name" content="Machine Learning Blog">
-<meta property="og:description" content="1.基本介绍Adaboost可以认为是一个机器学习中集成学习的算法框架，主要集中于解决二分类问题；而Adaboost.MH不仅仅可以解决多分类问题，还可以解决一个样本有多个标签的问题，比如说一个篇新闻既属于体育类又属于篮球类，那么这篇新闻可以同时打上两个标签（新闻和篮球），所以Adaboost.MH可以解决multi-label multi-class问题；MP-Boost算法和Adaboost.">
-<meta property="og:updated_time" content="2016-11-26T15:33:07.513Z">
+<meta property="og:description" content="1.基本介绍Adaboost可以认为是机器学习中一个集成学习的算法框架，主要集中于解决二分类问题；而Adaboost.MH不仅仅可以解决多分类问题，还可以解决一个样本有多个标签的问题，比如说一个篇新闻既属于体育类又属于篮球类，那么这篇新闻可以同时打上两个标签（新闻和篮球），所以Adaboost.MH可以解决Multi-Label Multi-Class问题；MP-Boost算法和Adaboost.">
+<meta property="og:updated_time" content="2016-11-26T15:40:32.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Adaboost、Adaboost.MH和MP-Boost算法原理和对比">
-<meta name="twitter:description" content="1.基本介绍Adaboost可以认为是一个机器学习中集成学习的算法框架，主要集中于解决二分类问题；而Adaboost.MH不仅仅可以解决多分类问题，还可以解决一个样本有多个标签的问题，比如说一个篇新闻既属于体育类又属于篮球类，那么这篇新闻可以同时打上两个标签（新闻和篮球），所以Adaboost.MH可以解决multi-label multi-class问题；MP-Boost算法和Adaboost.">
+<meta name="twitter:description" content="1.基本介绍Adaboost可以认为是机器学习中一个集成学习的算法框架，主要集中于解决二分类问题；而Adaboost.MH不仅仅可以解决多分类问题，还可以解决一个样本有多个标签的问题，比如说一个篇新闻既属于体育类又属于篮球类，那么这篇新闻可以同时打上两个标签（新闻和篮球），所以Adaboost.MH可以解决Multi-Label Multi-Class问题；MP-Boost算法和Adaboost.">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -239,7 +239,7 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="1-基本介绍"><a href="#1-基本介绍" class="headerlink" title="1.基本介绍"></a>1.基本介绍</h2><p>Adaboost可以认为是一个机器学习中集成学习的算法框架，主要集中于解决二分类问题；而Adaboost.MH不仅仅可以解决多分类问题，还可以解决一个样本有多个标签的问题，比如说一个篇新闻既属于体育类又属于篮球类，那么这篇新闻可以同时打上两个标签（新闻和篮球），所以Adaboost.MH可以解决multi-label multi-class问题；MP-Boost算法和Adaboost.MH类似，是Adaboost.MH一个优化版，可以大大减少模型的训练时长，且对于非高频类别样本时，MP-Boost比Adaboost.MH模型效果更好。下面咱们来详细介绍这些算法的原理和现实。</p>
+        <span itemprop="articleBody"><h2 id="1-基本介绍"><a href="#1-基本介绍" class="headerlink" title="1.基本介绍"></a>1.基本介绍</h2><p>Adaboost可以认为是机器学习中一个集成学习的算法框架，主要集中于解决二分类问题；而Adaboost.MH不仅仅可以解决多分类问题，还可以解决一个样本有多个标签的问题，比如说一个篇新闻既属于体育类又属于篮球类，那么这篇新闻可以同时打上两个标签（新闻和篮球），所以Adaboost.MH可以解决Multi-Label Multi-Class问题；MP-Boost算法和Adaboost.MH类似，是Adaboost.MH一个优化版，可以大大减少模型的训练时长，且对于非高频类别样本，MP-Boost比Adaboost.MH模型效果更好。下面咱们来详细介绍这些算法的原理和现实。</p>
 <h2 id="2-AdaBoost-算法流程"><a href="#2-AdaBoost-算法流程" class="headerlink" title="2.AdaBoost 算法流程"></a>2.AdaBoost 算法流程</h2><p>给定一个训练数据集T</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <h2 id="3-Adaboost-MH-算法流程"><a href="#3-Adaboost-MH-算法流程" class="headerlink" title="3.Adaboost.MH 算法流程"></a>3.Adaboost.MH 算法流程</h2><p>给定一个训练数据集T</p>
